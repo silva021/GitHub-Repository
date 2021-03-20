@@ -8,17 +8,30 @@ import android.os.Handler;
 
 import com.silva021.githubrepository.R;
 
-public class SplashActivity extends AppCompatActivity {
-
+public class SplashActivity extends AppCompatActivity implements Runnable{
+    Handler mHandler = new Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        Handler handler = new Handler();
+        mHandler.postDelayed(this, 4000);
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mHandler.removeCallbacks(this);
+    }
 
-        handler.postDelayed(() -> {
-            startActivity(new Intent(this, LoginActivity.class));
-            finish();
-        }, 4000);
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        run();
+    }
+
+    @Override
+    public void run() {
+        startActivity(new Intent(this, LoginActivity.class));
+        finish();
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 }
