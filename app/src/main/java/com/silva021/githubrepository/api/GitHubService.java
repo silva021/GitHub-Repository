@@ -1,6 +1,7 @@
 package com.silva021.githubrepository.api;
 
 import com.silva021.githubrepository.model.Repository;
+import com.silva021.githubrepository.model.RepositoryCommit;
 import com.silva021.githubrepository.model.User;
 
 import java.util.List;
@@ -15,6 +16,9 @@ public interface GitHubService {
 
     @GET("users/{user}/repos")
     Call<List<Repository>> getRepositories(@Path("user") String user);
+
+    @GET("repos/{user}/{repository}/commits")
+    Call<List<RepositoryCommit>> getCommits(@Path("user") String user, @Path("repository") String repository);
 
 
 }

@@ -1,5 +1,6 @@
 package com.silva021.githubrepository.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -18,15 +19,15 @@ import com.silva021.githubrepository.databinding.ActivityMainBinding;
 import com.silva021.githubrepository.model.Repository;
 import com.silva021.githubrepository.model.User;
 
-import java.io.Serializable;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RepositoryAdapter.OnItemClickListener{
     ActivityMainBinding mBinding;
+    private RepositoryAdapter mRepositoryAdapter;
     private User mUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +43,10 @@ public class MainActivity extends AppCompatActivity {
         mBinding.imgLogout.setOnClickListener(v -> {
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
     }
+
 
     private void updateView(User user) {
         Glide.with(getApplicationContext())
@@ -53,12 +56,11 @@ public class MainActivity extends AppCompatActivity {
                 .into(mBinding.imgProfitePhoto);
 
         mBinding.txtUser.setText(user.getLogin());
-//        initRecycler();
+
 
         ServiceGenerator.createService(GitHubService.class).getRepositories(user.getLogin()).enqueue(new Callback<List<Repository>>() {
             @Override
             public void onResponse(Call<List<Repository>> call, Response<List<Repository>> response) {
-//                Toast.makeText(MainActivity.this, "OK", Toast.LENGTH_SHORT).show();
                 initRecycler(response.body());
             }
 
@@ -70,9 +72,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initRecycler(List<Repository> list) {
-        RepositoryAdapter repositoryAdapter = new RepositoryAdapter(list, getApplicationContext());
-//        mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+        mRepositoryAdapter = new RepositoryAdapter(list, getApplicationContext());
+        mRepositoryAdapter.setOnItemClickListener(this::onItemClick);
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        mBinding.recyclerView.setAdapter(repositoryAdapter);
+        mBinding.recyclerView.setAdapter(mRepositoryAdapter);
+    }
+
+    @Override
+    public void onItemClick(@NonNull View view, int position) {
+        Repository repository = mRepositoryAdapter.getRepository(position);
+        startActivity(new Intent(MainActivity.this, CommitsActivity.class).putExtra("object", repository));
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
     }
 }

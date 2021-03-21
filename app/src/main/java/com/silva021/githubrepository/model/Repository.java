@@ -3,7 +3,9 @@ package com.silva021.githubrepository.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Repository {
+import java.io.Serializable;
+
+public class Repository implements Serializable {
 
     @SerializedName("name")
     @Expose
@@ -44,6 +46,14 @@ public class Repository {
     @SerializedName("language")
     @Expose
     private String language;
+
+    @SerializedName("stargazers_count")
+    @Expose
+    private String star;
+
+    public String getStar() {
+        return star;
+    }
 
     public String getName() {
         return name;
@@ -149,6 +159,10 @@ public class Repository {
         this.language = language;
     }
 
+    public void setStar(String star) {
+        this.star = star;
+    }
+
     @Override
     public String toString() {
         return "Repository{" +
@@ -156,7 +170,7 @@ public class Repository {
                 ", fullName='" + fullName + '\'' +
                 ", owner=" + owner +
                 ", htmlUrl='" + htmlUrl + '\'' +
-                ", description=" + description +
+                ", description='" + description + '\'' +
                 ", url='" + url + '\'' +
                 ", languagesUrl='" + languagesUrl + '\'' +
                 ", stargazersUrl='" + stargazersUrl + '\'' +
@@ -165,6 +179,7 @@ public class Repository {
                 ", updatedAt='" + updatedAt + '\'' +
                 ", pushedAt='" + pushedAt + '\'' +
                 ", language='" + language + '\'' +
+                ", star='" + star + '\'' +
                 '}';
     }
 }

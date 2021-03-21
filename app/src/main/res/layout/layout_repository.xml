@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="250dp"
     android:layout_margin="10dp"
-    android:background="@color/backgroundRecycler">
+    android:id="@+id/constraintLayout"
+    android:background="@drawable/rounded">
 
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -47,10 +48,11 @@
         android:id="@+id/txtDescription"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="5sp"
         android:layout_marginRight="10sp"
         android:textColor="@color/white"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/txtLanguage"
+        app:layout_constraintBottom_toTopOf="@+id/imgLanguage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/txtNameRepository"
         app:layout_constraintTop_toBottomOf="@+id/txtNameRepository" />
@@ -58,12 +60,48 @@
     <TextView
         android:id="@+id/txtLanguage"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginLeft="5dp"
         android:layout_marginBottom="10dp"
-        android:text="Java"
+        android:gravity="center_vertical"
+        android:text="Sem definição"
         android:textColor="@color/white"
-        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/txtDescription" />
+        app:layout_constraintStart_toEndOf="@+id/imgLanguage"
+        app:layout_constraintTop_toTopOf="@+id/imgLanguage" />
+
+    <ImageView
+        android:id="@+id/imgLanguage"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/ic_code"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/txtDescription"
+        app:tint="@color/white" />
+
+
+    <ImageView
+        android:id="@+id/imgStar"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/ic_star"
+        app:layout_constraintStart_toEndOf="@+id/txtLanguage"
+        app:layout_constraintTop_toTopOf="@+id/txtLanguage"
+        app:tint="@color/white" />
+
+    <TextView
+        android:id="@+id/txtStar"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_vertical"
+        android:text="0"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgStar"
+        app:layout_constraintTop_toTopOf="@+id/imgStar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

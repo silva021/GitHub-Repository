@@ -2,6 +2,7 @@ package com.silva021.githubrepository.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -18,10 +19,15 @@ import java.util.List;
 public class RepositoryAdapter extends RecyclerView.Adapter<RepositoryAdapter.ViewHolder> {
     List<Repository> mRepositoryList;
     Context mContext;
+    private OnItemClickListener mListener;
 
     public RepositoryAdapter(List<Repository> repositoryList, Context mContext) {
         this.mRepositoryList = repositoryList;
         this.mContext = mContext;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener mListener) {
+        this.mListener = mListener;
     }
 
     @NonNull
@@ -42,11 +48,18 @@ public class RepositoryAdapter extends RecyclerView.Adapter<RepositoryAdapter.Vi
                 .into(holder.mBinding.imgProfilePhoto);
 
         holder.mBinding.txtNameRepository.setText(repository.getName());
-        holder.mBinding.txtLanguage.setText(repository.getLanguage());
+        holder.mBinding.txtStar.setText(repository.getStar());
+        if (repository.getLanguage() != null) {
+            holder.mBinding.txtLanguage.setText(repository.getLanguage());
+        }
         holder.mBinding.txtOwner.setText(repository.getOwner().getLogin());
-        if  (repository.getDescription() != null)
+        if (repository.getDescription() != null)
             holder.mBinding.txtDescription.setText(repository.getDescription());
 
+    }
+
+    public Repository getRepository(int position){
+        return mRepositoryList.get(position);
     }
 
     @Override
@@ -60,6 +73,19 @@ public class RepositoryAdapter extends RecyclerView.Adapter<RepositoryAdapter.Vi
         public ViewHolder(LayoutRepositoryBinding mBinding) {
             super(mBinding.getRoot());
             this.mBinding = mBinding;
+
+            mBinding.constraintLayout.setOnClickListener(v -> {
+                if (mListener != null){
+                    mListener.onItemClick(mBinding.getRoot(), getAdapterPosition());
+                }
+            });
         }
+
+    }
+
+    public interface OnItemClickListener {
+
+        void onItemClick(@NonNull View view, int position);
+
     }
 }
