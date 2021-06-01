@@ -1,39 +1,38 @@
-package com.silva021.githubrepository.ui;
+package com.silva021.githubrepository.presenter.ui.main;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.silva021.githubrepository.R;
-import com.silva021.githubrepository.adapter.RepositoryAdapter;
-import com.silva021.githubrepository.api.GitHubService;
-import com.silva021.githubrepository.api.ServiceGenerator;
+import com.silva021.githubrepository.presenter.adapter.RepositoryAdapter;
 import com.silva021.githubrepository.databinding.ActivityMainBinding;
-import com.silva021.githubrepository.model.Repository;
-import com.silva021.githubrepository.model.User;
+import com.silva021.githubrepository.data.model.*;
+import com.silva021.githubrepository.presenter.ui.commit.CommitsActivity;
+import com.silva021.githubrepository.presenter.ui.login.LoginActivity;
 
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class MainActivity extends AppCompatActivity implements RepositoryAdapter.OnItemClickListener{
-    ActivityMainBinding mBinding;
+public class MainActivity extends AppCompatActivity implements RepositoryAdapter.OnItemClickListener {
+    private ActivityMainBinding mBinding;
     private RepositoryAdapter mRepositoryAdapter;
+    private MainViewModel mainViewModel;
     private User mUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
+
+        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
         if (getIntent().getExtras() != null) {
             mUser = (User) getIntent().getExtras().getSerializable("object");
@@ -58,15 +57,9 @@ public class MainActivity extends AppCompatActivity implements RepositoryAdapter
         mBinding.txtUser.setText(user.getLogin());
 
 
-        ServiceGenerator.createService(GitHubService.class).getRepositories(user.getLogin()).enqueue(new Callback<List<Repository>>() {
-            @Override
-            public void onResponse(Call<List<Repository>> call, Response<List<Repository>> response) {
-                initRecycler(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<List<Repository>> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Erro", Toast.LENGTH_SHORT).show();
+        mainViewModel.getListOfRepository(user.getLogin()).observe(this, repositoryList -> {
+            if (repositoryList != null) {
+                initRecycler(repositoryList);
             }
         });
     }

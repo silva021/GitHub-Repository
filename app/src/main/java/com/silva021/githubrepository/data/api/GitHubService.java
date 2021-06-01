@@ -1,8 +1,8 @@
-package com.silva021.githubrepository.api;
+package com.silva021.githubrepository.data.api;
 
-import com.silva021.githubrepository.model.Repository;
-import com.silva021.githubrepository.model.RepositoryCommit;
-import com.silva021.githubrepository.model.User;
+import com.silva021.githubrepository.data.model.Repository;
+import com.silva021.githubrepository.data.model.RepositoryCommit;
+import com.silva021.githubrepository.data.model.User;
 
 import java.util.List;
 

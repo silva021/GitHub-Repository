@@ -1,4 +1,4 @@
-package com.silva021.githubrepository.api;
+package com.silva021.githubrepository.data.api;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

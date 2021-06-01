@@ -1,4 +1,4 @@
-package com.silva021.githubrepository.model;
+package com.silva021.githubrepository.data.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

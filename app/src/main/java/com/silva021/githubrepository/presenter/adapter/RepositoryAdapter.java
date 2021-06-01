@@ -1,4 +1,4 @@
-package com.silva021.githubrepository.adapter;
+package com.silva021.githubrepository.presenter.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.silva021.githubrepository.R;
 import com.silva021.githubrepository.databinding.LayoutRepositoryBinding;
-import com.silva021.githubrepository.model.Repository;
+import com.silva021.githubrepository.data.model.*;
 
 import java.util.List;
 
@@ -58,7 +58,7 @@ public class RepositoryAdapter extends RecyclerView.Adapter<RepositoryAdapter.Vi
 
     }
 
-    public Repository getRepository(int position){
+    public Repository getRepository(int position) {
         return mRepositoryList.get(position);
     }
 
@@ -75,7 +75,7 @@ public class RepositoryAdapter extends RecyclerView.Adapter<RepositoryAdapter.Vi
             this.mBinding = mBinding;
 
             mBinding.constraintLayout.setOnClickListener(v -> {
-                if (mListener != null){
+                if (mListener != null) {
                     mListener.onItemClick(mBinding.getRoot(), getAdapterPosition());
                 }
             });

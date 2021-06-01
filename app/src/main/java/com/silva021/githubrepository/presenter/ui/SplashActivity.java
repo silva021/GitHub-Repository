@@ -1,4 +1,4 @@
-package com.silva021.githubrepository.ui;
+package com.silva021.githubrepository.presenter.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.silva021.githubrepository.R;
+import com.silva021.githubrepository.presenter.ui.login.LoginActivity;
 
 public class SplashActivity extends AppCompatActivity implements Runnable{
     Handler mHandler = new Handler();

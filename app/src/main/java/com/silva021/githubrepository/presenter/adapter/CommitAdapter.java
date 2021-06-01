@@ -1,16 +1,15 @@
-package com.silva021.githubrepository.adapter;
+package com.silva021.githubrepository.presenter.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.silva021.githubrepository.databinding.LayoutCommitsBinding;
-import com.silva021.githubrepository.model.Repository;
-import com.silva021.githubrepository.model.RepositoryCommit;
+import com.silva021.githubrepository.data.model.Repository;
+import com.silva021.githubrepository.data.model.RepositoryCommit;
 
 import java.util.List;
 

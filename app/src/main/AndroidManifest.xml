@@ -11,16 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GitHubRepository">
-        <activity android:name=".ui.CommitsActivity"></activity>
-        <activity android:name=".ui.LoginActivity" />
-        <activity android:name=".ui.SplashActivity">
+        <activity android:name=".presenter.ui.commit.CommitsActivity"></activity>
+        <activity android:name=".presenter.ui.login.LoginActivity" />
+        <activity android:name=".presenter.ui.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".presenter.ui.main.MainActivity">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
